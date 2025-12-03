@@ -12,6 +12,7 @@ _:
   "codex"
   "claude-code"
   "wave"
+  "surge"
 
 
   # Productivity Tools
