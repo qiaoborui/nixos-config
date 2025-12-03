@@ -112,6 +112,6 @@ in
     };
   };
 
-  programs = shared-programs // { gpg.enable = true; };
+  programs = shared-programs // { gpg.enable = false; };
 
 }

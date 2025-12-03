@@ -135,7 +135,7 @@ let name = "qiaoborui";
 	    editor = "vim";
         autocrlf = "input";
       };
-      commit.gpgsign = true;
+      commit.gpgsign = false;
       pull.rebase = true;
       rebase.autoStash = true;
     };

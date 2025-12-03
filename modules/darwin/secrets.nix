@@ -34,4 +34,14 @@ let user = "qiaoborui"; in
   #   owner = "${user}";
   # };
 
+  # Maven settings.xml with credentials
+  age.secrets."maven-settings" = {
+    symlink = true;
+    path = "/Users/${user}/.m2/settings.xml";
+    file = "${secrets}/maven-settings.xml.age";
+    mode = "600";
+    owner = "${user}";
+    group = "staff";
+  };
+
 }

@@ -13,7 +13,8 @@ let user = "qiaoborui"; in
 
   # Setup user, packages, programs
   # nix configuration is handled by nix-darwin automatically
-  # nix = {
+  nix = {
+    enable = false;
   #   package = pkgs.nix;
   #   settings = {
   #     trusted-users = [ "@admin" "${user}" ];
@@ -30,7 +31,7 @@ let user = "qiaoborui"; in
   #   extraOptions = ''
   #     experimental-features = nix-command flakes
   #   '';
-  # };
+  };
 
   # Turn off NIX_PATH warnings now that we're using flakes
 
