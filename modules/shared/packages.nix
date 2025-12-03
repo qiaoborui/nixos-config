@@ -28,10 +28,12 @@ with pkgs; [
 #  ffmpeg
   fd
   font-awesome
-  hack-font
   noto-fonts
   noto-fonts-color-emoji
-  meslo-lgs-nf
+
+  # Nerd Fonts - Fonts with icons for command line
+  nerd-fonts.fira-code
+  nerd-fonts.meslo-lg
 
   # Node.js development tools
 #  nodejs_24
@@ -39,7 +41,6 @@ with pkgs; [
   # Text and terminal utilities
   neovim
   htop
-  jetbrains-mono
   jq
   ripgrep
   tree
