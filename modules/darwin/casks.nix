@@ -17,6 +17,10 @@ _:
 
   # Productivity Tools
   "raycast"
+  "keka"
+  "chatwise"
+  "bleunlock"
+  "capslocknodelay"
 
 
   # Browsers
