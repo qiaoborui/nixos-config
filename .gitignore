@@ -1,0 +1,40 @@
+# Nix build results
+result
+result-*
+
+# System files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Secrets directory (managed separately)
+nix-secret/
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*_rsa
+*_dsa
+*_ecdsa
+*_ed25519
+*.age
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# macOS
+Icon
+._*
+.Spotlight-V100
+.Trashes
