@@ -273,10 +273,10 @@ let name = "qiaoborui";
         identitiesOnly = true;
         identityFile = [
           (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
-            "/home/${user}/.ssh/id_ed25519"
+            "/home/${user}/.ssh/id_ed25519_github"
           )
           (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
-            "/Users/${user}/.ssh/id_ed25519"
+            "/Users/${user}/.ssh/id_ed25519_github"
           )
         ];
       };
@@ -316,7 +316,7 @@ let name = "qiaoborui";
       }
     ];
     terminal = "screen-256color";
-    prefix = "C-x";
+    prefix = "C-a";
     escapeTime = 10;
     historyLimit = 50000;
     extraConfig = ''
@@ -330,20 +330,22 @@ let name = "qiaoborui";
       # Key bindings
       # -----------------------------------------------------------------------------
 
-      # Unbind default keys
-      unbind C-b
       unbind '"'
       unbind %
 
       # Split panes, vertical or horizontal
-      bind-key x split-window -v
-      bind-key v split-window -h
+      bind-key - split-window -v
+      bind-key _ split-window -h
 
       # Move around panes with vim-like bindings (h,j,k,l)
       bind-key -n M-k select-pane -U
       bind-key -n M-h select-pane -L
       bind-key -n M-j select-pane -D
       bind-key -n M-l select-pane -R
+
+      # Switch windows with Ctrl-h/l (previous/next) with wrap around
+      bind-key -r h select-window -t :-
+      bind-key -r l select-window -t :+
 
       # Smart pane switching with awareness of Vim splits.
       # This is copy paste from https://github.com/christoomey/vim-tmux-navigator
