@@ -61,6 +61,7 @@ with pkgs; [
   direnv
   tree-sitter
   bottom
+  lnav
   
   # Programming languages and runtimes
   go
