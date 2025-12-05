@@ -21,9 +21,15 @@ in
   homebrew = {
     enable = true;
     casks = pkgs.callPackage ./casks.nix {};
+    taps = [
+      "oven-sh/bun"
+      "tw93/tap"
+    ];
     brews = [
       "sl"
       "jabba"
+      "bun"
+      "tw93/tap/mole"
     ];
     # onActivation.cleanup = "uninstall";
 

@@ -21,7 +21,7 @@ _:
   "chatwise"
   "bleunlock"
   "capslocknodelay"
-
+  "shottr"
 
   # Browsers
   "google-chrome"

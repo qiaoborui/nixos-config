@@ -66,7 +66,7 @@ with pkgs; [
   go
 #  rustc
 #  cargo
-  openjdk
+  openjdk8
   nodejs_22
 
   # Python packages
