@@ -55,44 +55,28 @@ in
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
-    users.${user} = { pkgs, config, lib, ... }:{
-      home = {
-        enableNixpkgsReleaseCheck = false;
-        packages = pkgs.callPackage ./packages.nix {};
-        file = lib.mkMerge [
-          sharedFiles
-          additionalFiles
-        ];
+    users.${user} = { pkgs, config, lib, ... }:
+      let
+        sharedConfig = import ../shared/home-manager.nix { inherit config pkgs lib; };
+      in
+      {
+        home = {
+          enableNixpkgsReleaseCheck = false;
+          packages = pkgs.callPackage ./packages.nix {};
+          file = lib.mkMerge [
+            sharedFiles
+            additionalFiles
+          ];
 
-        stateVersion = "23.11";
+          stateVersion = "23.11";
+        } // sharedConfig.home;
+
+        programs = sharedConfig.programs;
+
+        # Marked broken Oct 20, 2022 check later to remove this
+        # https://github.com/nix-community/home-manager/issues/3344
+        manual.manpages.enable = false;
       };
-      programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib; };
-
-      # Bootstrap AstroNvim template if not already present
-      home.activation.bootstrapAstroNvim =
-        lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          target="${config.home.homeDirectory}/.config/nvim"
-          sentinel="$target/.nix-astrovim"
-          if [ -f "$sentinel" ]; then
-            echo "AstroNvim already bootstrapped at $target"
-          else
-            if [ -d "$target" ] || [ -f "$target" ]; then
-              backup="$target.bak-$(date +%s)"
-              echo "Backing up existing $target to $backup"
-              mv "$target" "$backup"
-            fi
-            echo "Cloning AstroNvim template..."
-            ${pkgs.git}/bin/git clone --depth 1 https://github.com/AstroNvim/template "$target"
-            rm -rf "$target/.git"
-            echo "Bootstrapped AstroNvim at $target"
-            echo "managed by nix" > "$sentinel"
-          fi
-        '';
-
-      # Marked broken Oct 20, 2022 check later to remove this
-      # https://github.com/nix-community/home-manager/issues/3344
-      manual.manpages.enable = false;
-    };
   };
 
   # Fully declarative dock using the latest from Nix Store

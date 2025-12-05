@@ -3,7 +3,7 @@
 let
   user = "qiaoborui";
   xdg_configHome  = "/home/${user}/.config";
-  shared-programs = import ../shared/home-manager.nix { inherit config pkgs lib; };
+  shared-config = import ../shared/home-manager.nix { inherit config pkgs lib; };
   shared-files = import ../shared/files.nix { inherit config pkgs; };
 
   polybar-user_modules = builtins.readFile (pkgs.replaceVars ./config/polybar/user_modules.ini {
@@ -32,7 +32,7 @@ in
     packages = pkgs.callPackage ./packages.nix {};
     file = shared-files // import ./files.nix { inherit user; };
     stateVersion = "21.05";
-  };
+  } // shared-config.home;
 
   # Use a dark theme
   gtk = {
@@ -112,6 +112,6 @@ in
     };
   };
 
-  programs = shared-programs // { gpg.enable = false; };
+  programs = shared-config.programs // { gpg.enable = false; };
 
 }
