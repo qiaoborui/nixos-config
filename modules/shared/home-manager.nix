@@ -51,15 +51,18 @@ let name = "qiaoborui";
       # Bootstrap fisher if not present, then ensure z plugin is installed
       if not functions -q fisher
         echo "Installing fisher..." >&2
-        curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
-        fisher install jorgebucaran/fisher >/dev/null
+        if ${pkgs.curl}/bin/curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+          fisher install jorgebucaran/fisher >/dev/null 2>&1
+        else
+          echo "Failed to install fisher. Please check your network connection." >&2
+        end
       end
 
       if functions -q fisher
-        set -l plugins (fisher list)
+        set -l plugins (fisher list 2>/dev/null)
         if not string match -q '*jethrokuan/z*' $plugins
           echo "Installing fisher plugin jethrokuan/z..." >&2
-          fisher install jethrokuan/z >/dev/null
+          fisher install jethrokuan/z >/dev/null 2>&1
         end
       end
     '';
