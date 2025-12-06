@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -e
+
+# Check if running from root of repo
+if [ ! -f "flake.nix" ]; then
+  echo "Please run this script from the root of the repository."
+  exit 1
+fi
+
+SCRIPT_DIR=$(dirname "$0")
+APPLY_SCRIPT="$SCRIPT_DIR/apply"
+
+# Run apply script
+if [ -f "$APPLY_SCRIPT" ]; then
+  $APPLY_SCRIPT
+else
+  echo "Apply script not found at $APPLY_SCRIPT"
+  exit 1
+fi
+
+# Get the system architecture
+ARCH=$(uname -m)
+if [ "$ARCH" == "x86_64" ]; then
+  FLAKE_ATTR="x86_64-linux"
+elif [ "$ARCH" == "aarch64" ]; then
+  FLAKE_ATTR="aarch64-linux"
+else
+  echo "Unsupported architecture: $ARCH"
+  exit 1
+fi
+
+echo "Partitioning disk..."
+# Run disko
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ./modules/nixos/disk-config.nix
+
+echo "Installing NixOS..."
+# Run nixos-install
+sudo nixos-install --flake ".#${FLAKE_ATTR}"
