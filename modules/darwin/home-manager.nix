@@ -24,12 +24,14 @@ in
     taps = [
       "oven-sh/bun"
       "tw93/tap"
+      "sunnyyoung/tap"
     ];
     brews = [
       "sl"
       "jabba"
       "bun"
       "tw93/tap/mole"
+      "sunnyyoung/tap/wechattweak"
     ];
     # onActivation.cleanup = "uninstall";
 
@@ -85,12 +87,11 @@ in
       enable = true;
       username = user;
       entries = [
-        { path = "/Applications/Arc.app/"; }
+        { path = "/Applications/Dia.app/"; }
         { path = "/Applications/Telegram.app/"; }
         { path = "/System/Applications/Messages.app/"; }
         { path = "${pkgs.obsidian}/Applications/Obsidian.app/"; }
-        { path = "/Applications/Wave.app/"; }
-        { path = "/Applications/iTerm.app/"; }
+        { path = "/Applications/Ghostty.app/"; }
         { path = "/System/Applications/Music.app/"; }
         { path = "/Applications/Surge.app/"; }
         { path = "/Applications/Visual Studio Code.app/"; }

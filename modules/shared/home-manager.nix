@@ -46,6 +46,16 @@ let name = "qiaoborui";
       shell = ''
         nix-shell '<nixpkgs>' -A $argv[1]
       '';
+
+      # SSH jump to fort and execute go command
+      jump = ''
+        if test (count $argv) -eq 0
+          echo "用法: jump <go 参数>"
+          return 1
+        end
+
+        ssh -tt fort "go $argv"
+      '';
     };
     interactiveShellInit = ''
       # Bootstrap fisher if not present, then ensure z plugin is installed

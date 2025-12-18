@@ -31,6 +31,10 @@
       url = "github:tw93/homebrew-tap";
       flake = false;
     };
+    homebrew-sunnyyoung = {
+      url = "github:sunnyyoung/homebrew-tap";
+      flake = false;
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,7 +44,7 @@
       flake = false;
     };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, homebrew-bun, homebrew-tw93, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, homebrew-bun, homebrew-tw93, homebrew-sunnyyoung, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
     let
       user = "qiaoborui";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -106,6 +110,7 @@
                   "homebrew/homebrew-bundle" = homebrew-bundle;
                   "oven-sh/homebrew-bun" = homebrew-bun;
                   "tw93/homebrew-tap" = homebrew-tw93;
+                  "sunnyyoung/homebrew-tap" = homebrew-sunnyyoung;
                 };
                 mutableTaps = false;
                 autoMigrate = true;

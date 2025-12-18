@@ -4,14 +4,13 @@ _:
   # Development Tools
   # "homebrew/cask/docker"
   "visual-studio-code"
-  "iterm2"
   "orbstack"
+  "ghostty"
   # "postman"
   "cursor"
   "antigravity"
   "codex"
   "claude-code"
-  "wave"
   "surge"
 
 
@@ -22,23 +21,10 @@ _:
   "bleunlock"
   "capslocknodelay"
   "shottr"
-
+  "input-source-pro"
   # Browsers
   "google-chrome"
-
-  # Communication Tools - Examples (uncomment as needed)
+  "blip"
   "discord"
-  # "notion"
-  # "slack"
   "telegram"
-  # "zoom"
-
-  # Utility Tools - Examples (uncomment as needed)
-  # "syncthing"
-  # "1password"
-  # "rectangle"
-
-  # Entertainment Tools - Examples (uncomment as needed)
-  # "spotify"
-  # "vlc"
 ]
