@@ -71,7 +71,12 @@ with pkgs; [
   nodejs_22
 
   # Python packages
-  python3
+  (python3.withPackages (ps: with ps; [
+    pip
+    setuptools
+    wheel
+  ]))
+
   virtualenv
 
   maven

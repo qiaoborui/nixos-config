@@ -97,6 +97,10 @@ let name = "qiaoborui";
         commit.gpgsign = false;
         pull.rebase = true;
         rebase.autoStash = true;
+        url = {
+          "git@git.huya.info:".insteadOf = "https://git.huya.info/";
+          "git@git.huya.com:".insteadOf = "https://git.huya.com/";
+        };
       };
     };
 

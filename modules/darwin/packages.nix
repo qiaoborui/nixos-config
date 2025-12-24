@@ -8,5 +8,6 @@ shared-packages ++ [
   utm
   stats
   jetbrains.idea-ultimate
+  jetbrains.goland
   obsidian
 ]

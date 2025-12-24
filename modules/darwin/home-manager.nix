@@ -64,7 +64,7 @@ in
       {
         home = {
           enableNixpkgsReleaseCheck = false;
-          packages = pkgs.callPackage ./packages.nix {};
+          packages = import ./packages.nix { inherit pkgs; };
           file = lib.mkMerge [
             sharedFiles
             additionalFiles

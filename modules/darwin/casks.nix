@@ -12,7 +12,9 @@ _:
   "codex"
   "claude-code"
   "surge"
-
+  "tencent-meeting"
+  "feishu"
+  "zed"
 
   # Productivity Tools
   "raycast"

@@ -26,6 +26,11 @@ let
         Port 32200
         User git
 
+      Host git.huya.com
+        HostName git.huya.com
+        Port 32200
+        User git
+      
       Host dev24
         HostName 10.132.22.79
         User root
