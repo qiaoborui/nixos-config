@@ -18,7 +18,6 @@ let
         HostName orb
 
       Host *
-        ForwardAgent yes
         AddKeysToAgent yes
 
       Host git.huya.info

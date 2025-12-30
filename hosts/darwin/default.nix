@@ -15,6 +15,10 @@ let user = "qiaoborui"; in
   # Disable nix-darwin's Nix management since we're using Determinate Nix
   nix.enable = false;
 
+  # Note: Since we're using Determinate Nix, garbage collection should be configured separately.
+  # You can manually run: nix-collect-garbage --delete-older-than 30d
+  # Or set up a periodic job using launchd or cron for automatic cleanup.
+
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 

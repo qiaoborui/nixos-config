@@ -45,12 +45,20 @@ let user = "qiaoborui";
       trusted-users = [ "@admin" "${user}" ];
       substituters = [ "https://nix-community.cachix.org" "https://cache.nixos.org" ];
       trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+      auto-optimise-store = true;
     };
 
     package = pkgs.nix;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+
+    # Automatic garbage collection
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
 
   # Manages keys and such
