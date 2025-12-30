@@ -11,13 +11,39 @@ let user = "qiaoborui"; in
      agenix.darwinModules.default
   ];
 
-  # Setup user, packages, programs
-  # Disable nix-darwin's Nix management since we're using Determinate Nix
-  nix.enable = false;
+  # Nix configuration - managed by nix-darwin
+  nix = {
+    package = pkgs.nix;
 
-  # Note: Since we're using Determinate Nix, garbage collection should be configured separately.
-  # You can manually run: nix-collect-garbage --delete-older-than 30d
-  # Or set up a periodic job using launchd or cron for automatic cleanup.
+    settings = {
+      trusted-users = [ "@admin" "${user}" ];
+
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+      ];
+
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+
+    # Automatic store optimization (runs weekly on Sunday at 3 AM)
+    optimise = {
+      automatic = true;
+      interval = { Weekday = 0; Hour = 3; Minute = 0; };
+    };
+
+    # Automatic garbage collection (runs weekly on Sunday at 2 AM)
+    gc = {
+      automatic = true;
+      interval = { Weekday = 0; Hour = 2; Minute = 0; };
+      options = "--delete-older-than 30d";
+    };
+  };
 
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
