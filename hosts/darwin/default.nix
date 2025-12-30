@@ -12,33 +12,16 @@ let user = "qiaoborui"; in
   ];
 
   # Setup user, packages, programs
-  # nix configuration is handled by nix-darwin automatically
-  nix = {
-    enable = false;
-  #   package = pkgs.nix;
-  #   settings = {
-  #     trusted-users = [ "@admin" "${user}" ];
-  #     substituters = [ "https://nix-community.cachix.org" "https://cache.nixos.org" ];
-  #     trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-  #   };
-  #
-  #   gc = {
-  #     automatic = true;
-  #     interval = { Weekday = 0; Hour = 2; Minute = 0; };
-  #     options = "--delete-older-than 30d";
-  #   };
-  #
-  #   extraOptions = ''
-  #     experimental-features = nix-command flakes
-  #   '';
-  };
+  # Disable nix-darwin's Nix management since we're using Determinate Nix
+  nix.enable = false;
 
   # Turn off NIX_PATH warnings now that we're using flakes
+  system.checks.verifyNixPath = false;
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
-    agenix.packages."${pkgs.system}".default
-    jetbrains.idea-ultimate
+    agenix.packages."${pkgs.stdenv.hostPlatform.system}".default
+    jetbrains.idea
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Make sure fish is an allowed login shell for the system user config
@@ -56,7 +39,6 @@ let user = "qiaoborui"; in
   };
 
   system = {
-    checks.verifyNixPath = false;
     primaryUser = user;
     stateVersion = 5;
 

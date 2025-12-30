@@ -1,11 +1,9 @@
 { pkgs }:
 
 with pkgs; [
-  # General packages for development and system management
+  # Core system tools
 #  alacritty
   bash-completion
-  bat
-  btop
   coreutils
   killall
   openssh
@@ -13,71 +11,75 @@ with pkgs; [
   wget
   zip
 
-  # Encryption and security tools
+  # CLI utilities
+  bat
+  btop
+  bottom
+  fd
+  fzf
+  htop
+  jq
+  lnav
+  ripgrep
+  tree
+  tmux
+  tmuxp
+  unrar
+  unzip
+
+  # Editors and terminal UI
+  neovim
+  zsh-powerlevel10k
+
+  # Productivity
+  obsidian
+
+  # Security and encryption tools
   age
   age-plugin-yubikey
   gnupg
   libfido2
 
-  # Cloud-related tools and SDKs
-#  docker
-#  docker-compose
-
-  # Media-related packages
+  # Fonts
   dejavu_fonts
 #  ffmpeg
-  fd
   font-awesome
   noto-fonts
   noto-fonts-color-emoji
-
-  # Nerd Fonts - Fonts with icons for command line
   nerd-fonts.fira-code
   nerd-fonts.meslo-lg
 
-  # Node.js development tools
-#  nodejs_24
-
-  # Text and terminal utilities
-  neovim
-  htop
-  jq
-  ripgrep
-  tree
-  tmux
-  unrar
-  unzip
-  zsh-powerlevel10k
-  obsidian
-
   # Development tools
   curl
+  direnv
   gh
+  lazygit
+  tree-sitter
+
+  # Cloud-related tools and SDKs
+#  docker
+#  docker-compose
 #  terraform
 #  kubectl
 #  awscli2
-  lazygit
-  fzf
-  direnv
-  tree-sitter
-  bottom
-  lnav
-  
+
   # Programming languages and runtimes
   go
 #  rustc
 #  cargo
   openjdk8
   nodejs_22
+#  nodejs_24
 
-  # Python packages
+  # Python tooling
   (python3.withPackages (ps: with ps; [
     pip
     setuptools
     wheel
   ]))
-
+  uv
   virtualenv
 
+  # Java tooling
   maven
 ]

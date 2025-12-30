@@ -1,0 +1,26 @@
+session_name: {{ session_name }}
+start_directory: {{ project_path }}
+windows:
+  - window_name: Claude Code
+    start_directory: {{ project_path }}
+    panes:
+      - claude --dangerously-skip-permissions {{ project_path }}
+
+  - window_name: Editor
+    start_directory: {{ project_path }}
+    panes:
+      - nvim .
+
+  - window_name: Service
+    layout: even-horizontal
+    start_directory: {{ project_path }}
+    panes:
+      - null
+      - null
+
+  - window_name: tmp
+    layout: even-horizontal
+    start_directory: {{ project_path }}
+    panes:
+      - null
+      - null

@@ -1,32 +1,34 @@
 _:
 
 [
-  # Development Tools
-  # "homebrew/cask/docker"
+  # Development tools
   "visual-studio-code"
   "orbstack"
   "ghostty"
-  # "postman"
-  "cursor"
   "antigravity"
   "codex"
   "claude-code"
   "surge"
-  "tencent-meeting"
-  "feishu"
   "zed"
+  "alma"
 
-  # Productivity Tools
+  # Productivity and system utilities
   "raycast"
   "keka"
-  "chatwise"
   "bleunlock"
   "capslocknodelay"
   "shottr"
   "input-source-pro"
-  # Browsers
-  "google-chrome"
+  "squirrel"
+
+  # Communication and meetings
+  "chatwise"
+  "tencent-meeting"
+  "feishu"
   "blip"
   "discord"
   "telegram"
+
+  # Browsers
+  "thebrowsercompany-dia"
 ]

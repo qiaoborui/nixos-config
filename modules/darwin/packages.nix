@@ -3,11 +3,18 @@
 with pkgs;
 let shared-packages = import ../shared/packages.nix { inherit pkgs; }; in
 shared-packages ++ [
+  # macOS utilities
   dockutil
   ice-bar
-  utm
   stats
-  jetbrains.idea-ultimate
+
+  # Virtualization
+  utm
+
+  # IDEs
+  jetbrains.idea
   jetbrains.goland
+
+  # Productivity
   obsidian
 ]

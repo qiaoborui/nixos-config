@@ -95,7 +95,7 @@ in
         { path = "/System/Applications/Music.app/"; }
         { path = "/Applications/Surge.app/"; }
         { path = "/Applications/Visual Studio Code.app/"; }
-        { path = "${pkgs.jetbrains.idea-ultimate}/Applications/IntelliJ IDEA.app/"; }
+        { path = "${pkgs.jetbrains.idea}/Applications/IntelliJ IDEA.app/"; }
         { path = "/System/Applications/System Settings.app/"; }
         {
           path = "${config.users.users.${user}.home}/Downloads";

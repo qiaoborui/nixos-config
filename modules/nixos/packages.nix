@@ -3,26 +3,22 @@
 with pkgs;
 let shared-packages = import ../shared/packages.nix { inherit pkgs; }; in
 shared-packages ++ [
-
   # Security and authentication
   yubikey-agent
   keepassxc
 
   # App and package management
   appimage-run
-  gnumake
-  cmake
   home-manager
 
-  # Media and design tools
-  fontconfig
-
-  # Productivity tools
+  # Build tools
+  gnumake
+  cmake
 
   # Audio tools
   pavucontrol # Pulse audio controls
 
-  # Testing and development tools
+  # App launcher and window tools
   rofi
   rofi-calc
   libtool # for Emacs vterm
@@ -39,20 +35,19 @@ shared-packages ++ [
   xorg.xrandr
 
   # File and system utilities
+  fontconfig
   inotify-tools # inotifywait, inotifywatch - For file system events
   libnotify
   pcmanfm # File browser
   sqlite
   xdg-utils
 
-  # Other utilities
+  # Browsers
+  firefox
   google-chrome
 
   # PDF viewer
   zathura
-
-  # Development tools
-  firefox
   
   # Music and entertainment
 ]

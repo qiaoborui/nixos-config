@@ -75,8 +75,29 @@ let name = "qiaoborui";
           fisher install jethrokuan/z >/dev/null 2>&1
         end
       end
+
+      # Ensure Atuin session vars are set for sync/import features.
+      if type -q atuin
+        atuin init fish | source
+      end
+
+      # Keep fish autosuggestions in sync across sessions.
+      function __fish_history_sync --on-event fish_postexec
+        history --save
+        history --merge
+      end
     '';
   };
+
+    atuin = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        auto_sync = true;
+        sync_mode = "background";
+        sync_frequency = "5s";
+      };
+    };
 
     git = {
       enable = true;
@@ -268,6 +289,7 @@ let name = "qiaoborui";
           set -g @resurrect-dir '$HOME/.cache/tmux/resurrect'
           set -g @resurrect-capture-pane-contents 'on'
           set -g @resurrect-pane-contents-area 'visible'
+          set -g @resurrect-processes 'htop "mo status" ~nvim claude'
         '';
       }
       {
@@ -332,6 +354,51 @@ let name = "qiaoborui";
       '';
     };
   };
+
+  # Tmuxp template
+  home.file.".tmuxp/dev-template.yaml".source = ./tmux/dev-template.yaml;
+
+  # Tmux-dev script
+  home.packages = [
+    (pkgs.writeShellScriptBin "tmux-dev" ''
+      # tmux-dev - Create a tmux development session from template
+      # Usage: tmux-dev <project_path> [session_name]
+
+      set -e
+
+      if [ -z "$1" ]; then
+          echo "Usage: tmux-dev <project_path> [session_name]"
+          echo "Example: tmux-dev ~/Developer/work/myproject"
+          echo "         tmux-dev ~/Developer/work/myproject my-session"
+          exit 1
+      fi
+
+      # Get absolute path
+      PROJECT_PATH=$(cd "$1" && pwd)
+      PROJECT_NAME=$(basename "$PROJECT_PATH")
+
+      # Use provided session name or default to project name
+      SESSION_NAME="''${2:-$PROJECT_NAME}"
+
+      # Create temp config
+      TEMP_CONFIG=$(mktemp /tmp/tmuxp-XXXXXX.yaml)
+
+      # Generate config from template
+      ${pkgs.gnused}/bin/sed -e "s|{{ session_name }}|$SESSION_NAME|g" \
+          -e "s|{{ project_path }}|$PROJECT_PATH|g" \
+          ~/.tmuxp/dev-template.yaml > "$TEMP_CONFIG"
+
+      echo "Creating session '$SESSION_NAME' for project: $PROJECT_PATH"
+
+      # Load tmuxp config
+      ${pkgs.tmuxp}/bin/tmuxp load -d "$TEMP_CONFIG"
+
+      # Clean up
+      rm "$TEMP_CONFIG"
+
+      echo "Session '$SESSION_NAME' created! Attach with: tmux attach -t $SESSION_NAME"
+    '')
+  ];
 
   home.activation.bootstrapAstroNvim =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
