@@ -51,7 +51,6 @@ let user = "qiaoborui"; in
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
     agenix.packages."${pkgs.stdenv.hostPlatform.system}".default
-    jetbrains.idea
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Make sure fish is an allowed login shell for the system user config

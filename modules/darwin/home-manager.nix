@@ -61,18 +61,19 @@ in
     users.${user} = { pkgs, config, lib, ... }:
       let
         sharedConfig = import ../shared/home-manager.nix { inherit config pkgs lib; };
+        darwinPackages = import ./packages.nix { inherit pkgs; };
       in
       {
         home = {
           enableNixpkgsReleaseCheck = false;
-          packages = import ./packages.nix { inherit pkgs; };
+          packages = darwinPackages ++ (sharedConfig.home.packages or []);
           file = lib.mkMerge [
             sharedFiles
             additionalFiles
           ];
 
           stateVersion = "23.11";
-        } // sharedConfig.home;
+        } // (builtins.removeAttrs sharedConfig.home [ "packages" ]);
 
         programs = sharedConfig.programs;
 
