@@ -57,6 +57,7 @@ in
   # Enable home-manager
   home-manager = {
     useGlobalPkgs = true;
+    useUserPackages = true;
     users.${user} = { pkgs, config, lib, ... }:
       let
         sharedConfig = import ../shared/home-manager.nix { inherit config pkgs lib; };

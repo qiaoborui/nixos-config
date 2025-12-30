@@ -91,7 +91,7 @@ let name = "qiaoborui";
 
     atuin = {
       enable = true;
-      enableFishIntegration = true;
+      enableFishIntegration = false;  # Disabled to avoid conflicts with manual init in fish config
       settings = {
         auto_sync = true;
         sync_mode = "background";

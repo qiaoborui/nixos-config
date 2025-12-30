@@ -14,7 +14,4 @@ shared-packages ++ [
   # IDEs
   jetbrains.idea
   jetbrains.goland
-
-  # Productivity
-  obsidian
 ]
