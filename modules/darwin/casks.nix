@@ -11,6 +11,7 @@ _:
   "surge"
   "zed"
   "alma"
+  "yaak"
 
   # Productivity and system utilities
   "raycast"

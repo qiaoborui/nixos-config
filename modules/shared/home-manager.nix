@@ -240,19 +240,20 @@ let name = "qiaoborui";
       enable = true;
       enableDefaultConfig = false;
       includes = [
-        (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
-          "/home/${user}/.ssh/config_external"
-        )
         (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
-          "/Users/${user}/.ssh/config_external"
+          "/Users/${user}/.orbstack/ssh/config"
         )
       ];
       matchBlocks = {
+        # Global defaults
         "*" = {
-          # Set the default values we want to keep
           sendEnv = [ "LANG" "LC_*" ];
           hashKnownHosts = true;
+          extraOptions = {
+            AddKeysToAgent = "yes";
+          };
         };
+
         "github.com" = {
           identitiesOnly = true;
           identityFile = [
@@ -263,6 +264,80 @@ let name = "qiaoborui";
               "/Users/${user}/.ssh/id_ed25519_github"
             )
           ];
+        };
+
+        # Local development (OrbStack)
+        "dev" = {
+          hostname = "172.21.44.10";
+          user = "borui";
+          identityFile = "~/.ssh/id_rsa";
+        };
+        "orb" = {
+          hostname = "orb";
+        };
+
+        # Company servers
+        "git.huya.info" = {
+          hostname = "git.huya.info";
+          port = 32200;
+          user = "git";
+        };
+        "git.huya.com" = {
+          hostname = "git.huya.com";
+          port = 32200;
+          user = "git";
+        };
+        "dev24" = {
+          hostname = "10.132.22.79";
+          user = "root";
+          identityFile = "~/.ssh/Identify";
+          port = 22;
+        };
+        "dev16" = {
+          hostname = "10.132.23.55";
+          user = "root";
+          identityFile = "~/.ssh/Identify";
+          port = 22;
+        };
+        "fort" = {
+          hostname = "fort.huya.com";
+          port = 32200;
+          user = "qiaoborui";
+          identityFile = "~/.ssh/Identify";
+          forwardAgent = true;
+          extraOptions = {
+            AddKeysToAgent = "yes";
+          };
+        };
+
+        # Personal servers
+        "3.147.46.85" = {
+          hostname = "3.147.46.85";
+          user = "root";
+        };
+        "209.170.67.168" = {
+          hostname = "209.170.67.168";
+          user = "root";
+          port = 60254;
+        };
+        "209.170.67.171" = {
+          hostname = "209.170.67.171";
+          user = "root";
+          port = 60254;
+        };
+        "ubuntu" = {
+          hostname = "ubuntu.int.borry.org";
+          user = "borui";
+        };
+        "cc" = {
+          hostname = "43.130.251.4";
+          user = "strawberry";
+          port = 6000;
+        };
+        "pi" = {
+          hostname = "pi.borry.org";
+          user = "pi";
+          proxyCommand = "/opt/homebrew/bin/cloudflared access ssh --hostname %h";
         };
       };
     };
